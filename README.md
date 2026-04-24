@@ -1,10 +1,16 @@
 Product List with Cart - Frontend Mentor Challenge
-This is my solution to the Product list with cart challenge on Frontend Mentor. The goal was to build a functional dessert ordering application that is fully responsive and manages cart state in real-time.
+
+This is my solution to the Product list with cart challenge on Frontend Mentor.
+
+The goal was to build a functional dessert ordering application that is fully responsive and manages cart state in real-time.
+
 🚀 Demo
 Live Site URL: [product-list-with-cart-main-omega-two.vercel.app]
+
 Frontend Mentor Solution: [Paste your solution link here]
 
 🛠️ Tech Stack
+
 For this project, I chose a modern stack focused on development speed and type safety:
 React 18 (Vite as the build tool)
 TypeScript for strict typing to prevent bugs in the cart logic.

@@ -49,7 +49,10 @@ function App() {
                     />
                     
                     {qty === 0 ? (
-                      <button className="add-to-cart-btn" onClick={() => addToCart(product.name)}>
+                      <button className="add-to-cart-btn" 
+                        onClick={() => addToCart(product.name)}
+                        aria-label={`Add ${product.name} to cart`} // Accesibilidad: etiqueta aria para describir la acción del botón
+                        >
                         <img src="/assets/images/icon-add-to-cart.svg" alt="" />
                         Add to Cart
                       </button>
@@ -77,7 +80,9 @@ function App() {
 
         {/* SECCIÓN DEL CARRITO */}
         <aside className="cart-aside">
-          <h2 className="cart-title">Your Cart ({totalItems})</h2>
+          <h2 className="cart-title" aria-live="polite">
+            Your Cart ({totalItems})
+          </h2>
           
           {totalItems === 0 ? (
             <div className="empty-cart">
