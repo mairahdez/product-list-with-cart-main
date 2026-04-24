@@ -50,7 +50,7 @@ function App() {
                     
                     {qty === 0 ? (
                       <button className="add-to-cart-btn" onClick={() => addToCart(product.name)}>
-                        <img src="./assets/images/icon-add-to-cart.svg" alt="" />
+                        <img src="/assets/images/icon-add-to-cart.svg" alt="" />
                         Add to Cart
                       </button>
                     ) : (
@@ -81,7 +81,7 @@ function App() {
           
           {totalItems === 0 ? (
             <div className="empty-cart">
-              <img src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart" />
+              <img src="/assets/images/illustration-empty-cart.svg" alt="Empty Cart" />
               <p>Your added items will appear here</p>
             </div>
           ) : (
@@ -113,7 +113,7 @@ function App() {
               </div>
               
               <div className="carbon-neutral-ad">
-                <img src="./assets/images/icon-carbon-neutral.svg" alt="" />
+                <img src="/assets/images/icon-carbon-neutral.svg" alt="" />
                 <p>This is a <strong>carbon-neutral</strong> delivery</p>
               </div>
 
@@ -129,7 +129,7 @@ function App() {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <img src="./assets/images/icon-order-confirmed.svg" alt="Confirmed" />
+            <img src="/assets/images/icon-order-confirmed.svg" alt="Confirmed" />
             <h1 className="modal-title">Order Confirmed</h1>
             <p className="modal-subtitle">We hope you enjoy your food!</p>
 
