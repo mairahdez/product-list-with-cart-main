@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import data from './data.json';
 import './App.css';
@@ -7,6 +6,8 @@ function App() {
   const [cart, setCart] = useState<{ [key: string]: number }>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Nota: El estilo 'overflow: hidden' se maneja aquí para el modal, 
+  // pero recuerda quitar cualquier 'body { style: ... }' manual de tu index.html.
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? 'hidden' : 'unset';
   }, [isModalOpen]);
@@ -33,60 +34,74 @@ function App() {
     <div className="app-wrapper">
       <div className="main-container">
         
-        {/* SECCIÓN DE PRODUCTOS */}
+        {/* SECCIÓN DE PRODUCTOS - Cambiada a una estructura de lista semántica */}
         <main className="products-section">
           <h1 className="title">Desserts</h1>
-          <div className="products-grid">
+          <ul className="products-grid">
             {data.map((product) => {
               const qty = cart[product.name] || 0;
               return (
-                <div key={product.name} className="product-card">
-                  <div className="product-image-container">
-                    <img 
-                      src={product.image.desktop} 
-                      alt={product.name} 
-                      className={`product-image ${qty > 0 ? 'active' : ''}`} 
-                    />
-                    
-                    {qty === 0 ? (
-                      <button className="add-to-cart-btn" 
-                        onClick={() => addToCart(product.name)}
-                        aria-label={`Add ${product.name} to cart`} // Accesibilidad: etiqueta aria para describir la acción del botón
+                <li key={product.name}>
+                  <article className="product-card">
+                    <div className="product-image-container">
+                      <img 
+                        src={product.image.desktop} 
+                        alt={product.name} 
+                        className={`product-image ${qty > 0 ? 'active' : ''}`} 
+                      />
+                      
+                      {qty === 0 ? (
+                        <button 
+                          type="button"
+                          className="add-to-cart-btn" 
+                          onClick={() => addToCart(product.name)}
+                          aria-label={`Add ${product.name} to cart`}
                         >
-                        <img src="/assets/images/icon-add-to-cart.svg" alt="" />
-                        Add to Cart
-                      </button>
-                    ) : (
-                      <div className="quantity-controls">
-                        {/* span interno para centrado visual del ícono */}
-                        <button onClick={() => removeFromCart(product.name)} className="qty-btn">
-                          <span>-</span>
+                          <img src="/assets/images/icon-add-to-cart.svg" alt="" />
+                          Add to Cart
                         </button>
-                        <span className="qty-number">{qty}</span>
-                        <button onClick={() => addToCart(product.name)} className="qty-btn">
-                          <span>+</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  <p className="product-category">{product.category}</p>
-                  <h2 className="product-name">{product.name}</h2>
-                  <p className="product-price">${product.price.toFixed(2)}</p>
-                </div>
+                      ) : (
+                        <div className="quantity-controls">
+                          <button 
+                            type="button"
+                            onClick={() => removeFromCart(product.name)} 
+                            className="qty-btn"
+                            aria-label={`Remove one ${product.name} from cart`}
+                          >
+                            <span>-</span>
+                          </button>
+                          <span className="qty-number" aria-live="polite">{qty}</span>
+                          <button 
+                            type="button"
+                            onClick={() => addToCart(product.name)} 
+                            className="qty-btn"
+                            aria-label={`Add one more ${product.name} to cart`}
+                          >
+                            <span>+</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <p className="product-category">{product.category}</p>
+                    {/* h3 para respetar la jerarquía (h1: Desserts, h2: Cart) */}
+                    <h3 className="product-name">{product.name}</h3>
+                    <p className="product-price">${product.price.toFixed(2)}</p>
+                  </article>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </main>
 
         {/* SECCIÓN DEL CARRITO */}
-        <aside className="cart-aside">
-          <h2 className="cart-title" aria-live="polite">
+        <aside className="cart-aside" aria-labelledby="cart-heading">
+          <h2 id="cart-heading" className="cart-title" aria-live="polite">
             Your Cart ({totalItems})
           </h2>
           
           {totalItems === 0 ? (
             <div className="empty-cart">
-              <img src="/assets/images/illustration-empty-cart.svg" alt="Empty Cart" />
+              <img src="/assets/images/illustration-empty-cart.svg" alt="" role="presentation" />
               <p>Your added items will appear here</p>
             </div>
           ) : (
@@ -103,12 +118,16 @@ function App() {
                         <span className="item-subtotal">${((p?.price || 0) * qty).toFixed(2)}</span>
                       </div>
                     </div>
-                    {/* El botón de eliminar tiene su clase para el hover de rotación */}
-                    <button className="remove-item" onClick={() => {
-                       const newCart = {...cart};
-                       delete newCart[name];
-                       setCart(newCart);
-                    }}>×</button>
+                    <button 
+                      type="button"
+                      className="remove-item" 
+                      aria-label={`Remove ${name} from cart`}
+                      onClick={() => {
+                        const newCart = {...cart};
+                        delete newCart[name];
+                        setCart(newCart);
+                      }}
+                    >×</button>
                   </div>
                 );
               })}
@@ -122,7 +141,11 @@ function App() {
                 <p>This is a <strong>carbon-neutral</strong> delivery</p>
               </div>
 
-              <button className="confirm-button" onClick={() => setIsModalOpen(true)}>
+              <button 
+                type="button"
+                className="confirm-button" 
+                onClick={() => setIsModalOpen(true)}
+              >
                 Confirm Order
               </button>
             </div>
@@ -132,10 +155,10 @@ function App() {
 
       {/* MODAL DE CONFIRMACIÓN */}
       {isModalOpen && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <div className="modal-content">
-            <img src="/assets/images/icon-order-confirmed.svg" alt="Confirmed" />
-            <h1 className="modal-title">Order Confirmed</h1>
+            <img src="/assets/images/icon-order-confirmed.svg" alt="" />
+            <h2 id="modal-title" className="modal-title">Order Confirmed</h2>
             <p className="modal-subtitle">We hope you enjoy your food!</p>
 
             <div className="order-summary-container">
@@ -163,7 +186,11 @@ function App() {
               </div>
             </div>
 
-            <button className="confirm-button" onClick={() => { setCart({}); setIsModalOpen(false); }}>
+            <button 
+              type="button"
+              className="confirm-button" 
+              onClick={() => { setCart({}); setIsModalOpen(false); }}
+            >
               Start New Order
             </button>
           </div>
