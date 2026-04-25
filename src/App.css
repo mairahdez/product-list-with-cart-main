@@ -88,7 +88,7 @@
   align-items: center; 
   justify-content: center;
   
-  /* FONTO OSCURO: 0.7 para que se note que está encima */
+  /* FONDO OSCURO: 0.7 para que se note que está encima */
   background-color: rgba(0, 0, 0, 0.7) !important; 
   
   -webkit-backdrop-filter: blur(4px); 
