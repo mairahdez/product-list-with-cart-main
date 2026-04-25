@@ -1,6 +1,3 @@
-/* src/index.css */
-
-/* Reset básico para que el diseño sea predecible */
 * {
   box-sizing: border-box;
 }
@@ -8,13 +5,15 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fcf8f5; /* El color de fondo del proyecto */
-  color: #260f08;           /* El color de texto principal */
+  background-color: #fcf8f5;
+  color: #260f08;
+  font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Aseguramos que el root de React ocupe todo el ancho */
 #root {
   width: 100%;
 }
+
+/

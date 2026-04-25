@@ -1,4 +1,4 @@
-/* 1. VARIABLES (Optimización de Performance) */
+/* 1. VARIABLES */
 :root {
   --red: #c73a0f;
   --red-dark: #a32f0c;
@@ -9,11 +9,11 @@
   --transition-smooth: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* 2. ESTRUCTURA BASE (Mobile-First) */
+/* 2. ESTRUCTURA BASE */
 .app-wrapper {
   background-color: var(--bg-color);
   min-height: 100vh;
-  padding: 1.5rem 1rem; /* Uso de rem para accesibilidad */
+  padding: 1.5rem 1rem;
 }
 
 .main-container {
@@ -21,16 +21,11 @@
   flex-direction: column; 
   gap: 2rem;
   width: 100%;
-  max-width: 76rem; /* ~1216px */
+  max-width: 76rem;
   margin: 0 auto;
 }
 
 /* 3. PRODUCTOS Y GRID */
-
-.products-section {
-  flex: 1;
-}
-
 .products-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -57,30 +52,23 @@
 
 /* 4. CARRITO (ASIDE) */
 .cart-aside {
-  width: 100%; /* Ocupa todo el ancho en móvil */
+  width: 100%;
   background-color: white;
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* 5. INTERACTIVIDAD Y FOCO (Accesibilidad) */
-/* Se agregaron estilos de foco para usuarios que navegan con teclado */
-.confirm-button:focus-visible,
-.add-to-cart-btn:focus-visible,
-.qty-btn:focus-visible {
-  outline: 3px auto var(--red);
-  outline-offset: 4px;
-}
-
+/* 5. INTERACTIVIDAD */
 .confirm-button {
   width: 100%;
   background-color: var(--red);
   color: white;
   border: none;
-  border-radius: 1.5rem;
-  padding: 1rem;
+  border-radius: 999px; /* Estilo píldora más moderno */
+  padding: 1.1rem;
   font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
   margin-top: 1.5rem;
   transition: var(--transition-smooth);
@@ -88,42 +76,47 @@
 
 .confirm-button:hover {
   background-color: var(--red-dark);
+  transform: translateY(-2px); /* Pequeña elevación al pasar el mouse */
 }
 
-
-.add-to-cart-btn:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-/* 6. MODAL (Accesibilidad en Scroll) */
+/* 6. MODAL (Capa superior) */
 .modal-overlay {
   position: fixed;
   inset: 0; 
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000; /* Aumentado para asegurar que esté sobre TODO */
   display: flex;
-  align-items: flex-end; 
+  align-items: center; 
   justify-content: center;
-  z-index: 1000;
-
-  /* 1. Versión para Safari (iPhone/Mac)*/
-  -webkit-backdrop-filter: blur(4px);
   
-  /* 2. Versión estándar (Chrome/Edge/Firefox) */
+  /* FONTO OSCURO: 0.7 para que se note que está encima */
+  background-color: rgba(0, 0, 0, 0.7) !important; 
+  
+  -webkit-backdrop-filter: blur(4px); 
   backdrop-filter: blur(4px);
 }
 
-/* 7. MEDIA QUERIES (Mobile-First con em/rem) */
+.modal-content {
+  background-color: white !important;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 550px;
+  max-height: 90vh; /* Evita que el modal se salga en pantallas pequeñas */
+  overflow-y: auto; /* Permite scroll dentro del modal si hay muchos productos */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
 
-/* Tablets: 2 columnas */
-@media (min-width: 48em) { /* ~768px */
+/* 7. MEDIA QUERIES (Mobile-First) */
+
+/* Tablets */
+@media (min-width: 48em) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Desktop: 3 columnas y Carrito lateral */
-@media (min-width: 64em) { /* ~1024px */
+/* Desktop */
+@media (min-width: 64em) {
   .main-container {
     flex-direction: row;
     align-items: flex-start;
@@ -134,23 +127,14 @@
   }
 
   .cart-aside {
-    width: 24rem; /* 384px */
+    width: 24rem;
     position: sticky;
     top: 2.5rem;
   }
 
-  .modal-overlay {
-    align-items: center; /* Centrado en desktop */
-    -webkit-backdrop-filter: blur(4px); 
-    backdrop-filter: blur(4px);
-  }
   
-  .app-wrapper {
-    padding: 2.5rem 1.5rem;
-  }
 }
 
-/* Respetar preferencia de reducción de movimiento */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
