@@ -13,8 +13,11 @@ Frontend Mentor Solution: [Paste your solution link here]
 
 For this project, I chose a modern stack focused on development speed and type safety:
 React 18 (Vite as the build tool)
+
 TypeScript for strict typing to prevent bugs in the cart logic.
+
 CSS3 with custom variables for styling (Grid and Flexbox).
+
 Vercel for continuous deployment (CI/CD).
 
 🌟 Features
